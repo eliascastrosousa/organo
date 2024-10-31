@@ -3,6 +3,7 @@ import Banner from './componentes/Banner';
 import Formulario from './componentes/Formulario';
 import Time from './componentes/Time';
 import Rodape from './componentes/Rodape';
+import Navbar from './componentes/Navbar/Index';
 
 function App() {
 
@@ -51,14 +52,18 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar/>
       <Banner/>
       <Formulario posicoesTime={posicoesTime} times={times.map(time=>time.nome)} aoJogadorCadastrado={jogador => aoNovoJogadorAdicionado(jogador)}/>
       
       {times.map(time => <Time 
        key={time.nome} 
-       nome={time.nome} 
+       nome={time.nome}
+       sobrenome={time.sobrenome}
        corPrimaria={time.corPrimaria} 
        corSecundaria={time.corSecundaria}
+       posicao={time.posicoesTime}
+
        jogadores={jogadores.filter(jogador => jogador.time === time.nome)}
       />)}
 
