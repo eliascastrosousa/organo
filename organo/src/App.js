@@ -9,23 +9,39 @@ function App() {
 
   const times = [
     {
-      nome: 'Botafogo',
-      corPrimaria:'#212529',
-      corSecundaria:'#f8f9fa'
+      nome: 'Club Athletico Paranaense',
+      escudo: '',
+      corPrimaria:'#C8102E',
+      corSecundaria:'#2D2926',
+      corTerciaria: '#FFFFFF'
+
     },
     {
       nome: 'Palmeiras',
+      escudo: '',
       corPrimaria:'#008000',
-      corSecundaria:'#9ef01a'
+      corSecundaria:'#9ef01a',
+      corTerciaria: '#FFFFFF'
     },
     {
       nome: 'São Paulo',
-      corPrimaria:'#f21b3f',
-      corSecundaria:'#01110a'
+      escudo: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/S%C3%A3o_Paulo_Futebol_Clube.png',
+      corPrimaria:'#FFFFFF',
+      corSecundaria:'#DE0027',
+      corTerciaria: '#000000'
     },{
-      nome: 'Cruzeiro',
-      corPrimaria:'#0077b6',
-      corSecundaria:'#ffffff'
+      nome: 'Sport Club Internacional',
+      escudo: '',
+      corPrimaria:'#C8102E',
+      corSecundaria:'#FFFFFF',
+      corTerciaria: '#FFFFFF'
+    }
+    ,{
+      nome: 'Esporte Clube Bahia',
+      escudo: '',
+      corPrimaria:'#3F5F9F',
+      corSecundaria:'#C12723',
+      corTerciaria: '#FFFFFF'
     }
   ];
 
@@ -52,16 +68,16 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar/>
       <Banner/>
       <Formulario posicoesTime={posicoesTime} times={times.map(time=>time.nome)} aoJogadorCadastrado={jogador => aoNovoJogadorAdicionado(jogador)}/>
       
       {times.map(time => <Time 
        key={time.nome} 
        nome={time.nome}
-       sobrenome={time.sobrenome}
+       escudo={time.escudo}
        corPrimaria={time.corPrimaria} 
        corSecundaria={time.corSecundaria}
+       corTerciaria={time.corTerciaria}
        posicao={time.posicoesTime}
 
        jogadores={jogadores.filter(jogador => jogador.time === time.nome)}

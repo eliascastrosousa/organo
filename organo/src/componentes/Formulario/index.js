@@ -4,6 +4,7 @@ import CampoData from "../CampoData";
 import CampoTexto from "../CampoTexto/CampoTexto";
 import ListaSuspensa from "../ListaSuspensa";
 import "./Formulario.css";
+import Modal from "../Modal/Index";
 
 const Formulario = (props) => {
   const [nome, setNome] = useState("");
@@ -12,6 +13,15 @@ const Formulario = (props) => {
   const [imagem, setImagem] = useState("");
   const [posicao, setPosicao] = useState("Goleiro");
   const [time, setTime] = useState("Botafogo");
+
+  const [nomeDoTime, setNomeDoTime] = useState("")
+  const [corPrimaria, setCorPrimaria] = useState("")
+  const [corSecundaria, setCorSecundaria] = useState("")
+
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
 
   const aoSalvar = (evento) => {
     evento.preventDefault();
@@ -31,6 +41,19 @@ const Formulario = (props) => {
     setTime("");
   };
 
+  const aoSalvarCadastreTime = (evento) => {
+    evento.preventDefault();
+    props.aoTimeCadastrado({
+      nomeDoTime,
+      corPrimaria,
+      corSecundaria
+    });
+    setNomeDoTime("");
+    setCorPrimaria("");
+    setCorSecundaria("");
+
+  };
+
   return (
     <section className="formulario">
       <form onSubmit={aoSalvar}>
@@ -38,8 +61,8 @@ const Formulario = (props) => {
           <h2 className="text-base/7 font-semibold text-gray-900">
             Preencha os dados para criar o card do jogador.
           </h2>
-         
-          <hr className="border-gray-500"/>
+
+          <hr className="border-gray-500" />
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div div className="sm:col-span-3">
               <CampoTexto
@@ -101,12 +124,11 @@ const Formulario = (props) => {
                 aoAlterado={(valor) => setTime(valor)}
               />
             </div>
+            
           </div>
-          <br/>
+          <br />
           <Botao texto="Criar Card">Criar Card </Botao>
         </div>
-
-        
       </form>
     </section>
   );
