@@ -4,7 +4,7 @@ import Formulario from './componentes/Formulario';
 import Time from './componentes/Time';
 import Rodape from './componentes/Rodape';
 import Navbar from './componentes/Navbar/Index';
-
+import './App.css'
 function App() {
 
   const times = [

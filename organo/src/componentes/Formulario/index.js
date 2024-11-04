@@ -83,16 +83,7 @@ const Formulario = (props) => {
               />
             </div>
           </div>
-          <div className="sm:col-span-6">
-            <div className="mt-2">
-              <CampoData
-                obrigatorio={true}
-                label="Data nascimento"
-                valor={dataNasc}
-                aoAlterado={(valor) => setDataNasc(valor)}
-              />
-            </div>
-          </div>
+        
           <div className="sm:col-span-6">
             <div className="mt-2">
               <CampoTexto
