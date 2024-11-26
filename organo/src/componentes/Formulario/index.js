@@ -1,128 +1,79 @@
-import { useState } from "react";
-import Botao from "../Botao";
-import CampoData from "../CampoData";
-import CampoTexto from "../CampoTexto/CampoTexto";
-import ListaSuspensa from "../ListaSuspensa";
-import "./Formulario.css";
-import Modal from "../Modal/Index";
+import { useState } from 'react'
+import Botao from '../Botao'
+import ListaSuspensa from '../ListaSuspensa'
+import './Formulario.css'
+import Campo from '../Campo'
 
-const Formulario = (props) => {
-  const [nome, setNome] = useState("");
-  const [sobrenome, setSobrenome] = useState("");
-  const [dataNasc, setDataNasc] = useState("");
-  const [imagem, setImagem] = useState("");
-  const [posicao, setPosicao] = useState("Goleiro");
-  const [time, setTime] = useState("Botafogo");
+const Formulario = ({ aoCadastrar, times, aoCriarTime }) => {
 
-  const [nomeDoTime, setNomeDoTime] = useState("")
-  const [corPrimaria, setCorPrimaria] = useState("")
-  const [corSecundaria, setCorSecundaria] = useState("")
+    const [nome, setNome] = useState('')
+    const [cargo, setCargo] = useState('')
+    const [imagem, setImagem] = useState('')
+    const [time, setTime] = useState('')
+    const [nomeTime, setNomeTime] = useState('')
+    const [corTime, setCorTime] = useState('')
 
-  const [isModalOpen, setModalOpen] = useState(false);
+    const aoSubmeter = (evento) => {
+        evento.preventDefault()
+        console.log('form enviado', nome, cargo, imagem, time )
+        aoCadastrar({
+            nome,
+            cargo,
+            imagem,
+            time
+        })
+    }
 
-  const openModal = () => setModalOpen(true);
-  const closeModal = () => setModalOpen(false);
+    return (
+        <section className="formulario-container">
+            <form className="formulario" onSubmit={aoSubmeter}>
+                <h2>Preencha os dados para criar o card do colaborador.</h2>
+                <Campo
+                    obrigatorio={true}
+                    label='Nome'
+                    placeholder='Digite seu nome '
+                    valor={nome}
+                    aoAlterado={valor => setNome(valor)}/>
+                <Campo
+                    obrigatorio={true}
+                    label='Cargo' 
+                    placeholder='Digite seu cargo '
+                    valor={cargo}
+                    aoAlterado={valor => setCargo(valor)}/>
+                <Campo 
+                    label='Imagem' 
+                    placeholder='Informe o endereço da imagem '
+                    aoAlterado={valor => setImagem(valor)}/>
+                <ListaSuspensa 
+                    obrigatorio={true}
+                    label='Times'
+                    items={times} 
+                    valor={time}
+                    aoAlterado={valor => setTime(valor)}/>
+                <Botao texto='Criar card' />
+            </form>
+            <form className="formulario" onSubmit={(evento) => {
+                evento.preventDefault()
+                aoCriarTime({ nome: nomeTime, cor: corTime })
+            }}>
+                <h2>Preencha os dados para criar um novo time.</h2>
+                <Campo
+                    obrigatorio={true}
+                    label='Nome'
+                    placeholder='Digite o nome do time'
+                    valor={nomeTime}
+                    aoAlterado={valor => setNomeTime(valor)}/>
+                <Campo
+                    obrigatorio={true}
+                    label='Cor'
+                    type='color'
+                    placeholder='Digite sua cor'
+                    valor={corTime}
+                    aoAlterado={valor => setCorTime(valor)}/>
+                <Botao texto='Criar Time' />
+            </form>
+        </section>
+    )
+}
 
-  const aoSalvar = (evento) => {
-    evento.preventDefault();
-    props.aoJogadorCadastrado({
-      nome,
-      sobrenome,
-      dataNasc,
-      imagem,
-      posicao,
-      time,
-    });
-    setNome("");
-    setSobrenome("");
-    setDataNasc("");
-    setImagem("");
-    setPosicao("");
-    setTime("");
-  };
-
-  const aoSalvarCadastreTime = (evento) => {
-    evento.preventDefault();
-    props.aoTimeCadastrado({
-      nomeDoTime,
-      corPrimaria,
-      corSecundaria
-    });
-    setNomeDoTime("");
-    setCorPrimaria("");
-    setCorSecundaria("");
-
-  };
-
-  return (
-    <section className="formulario">
-      <form onSubmit={aoSalvar}>
-        <div className="border-b border-gray-900/10 pb-12">
-          <h2 className="text-base/7 font-semibold text-gray-900">
-            Preencha os dados para criar o card do jogador.
-          </h2>
-
-          <hr className="border-gray-500" />
-          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <div div className="sm:col-span-3">
-              <CampoTexto
-                obrigatorio={true}
-                label="Nome"
-                placeholder="Digite o nome"
-                valor={nome}
-                aoAlterado={(valor) => setNome(valor)}
-              />
-            </div>
-            <div div className="sm:col-span-3">
-              <CampoTexto
-                obrigatorio={true}
-                label="Sobrenome"
-                placeholder="Digite o sobrenome"
-                valor={sobrenome}
-                aoAlterado={(valor) => setSobrenome(valor)}
-              />
-            </div>
-          </div>
-        
-          <div className="sm:col-span-6">
-            <div className="mt-2">
-              <CampoTexto
-                label="Imagem"
-                placeholder="Digite o endereço da imagem"
-                valor={imagem}
-                aoAlterado={(valor) => setImagem(valor)}
-              />
-            </div>
-          </div>
-          <div className="sm:col-span-3">
-            <div className="mt-2">
-              <ListaSuspensa
-                obrigatorio={true}
-                label="Posição no campo"
-                itens={props.posicoesTime}
-                valor={posicao}
-                aoAlterado={(valor) => setPosicao(valor)}
-              />
-            </div>
-          </div>
-          <div className="sm:col-span-3">
-            <div className="mt-2">
-              <ListaSuspensa
-                obrigatorio={true}
-                label="Times do brasileirão 2024"
-                itens={props.times}
-                valor={time}
-                aoAlterado={(valor) => setTime(valor)}
-              />
-            </div>
-            
-          </div>
-          <br />
-          <Botao texto="Criar Card">Criar Card </Botao>
-        </div>
-      </form>
-    </section>
-  );
-};
-
-export default Formulario;
+export default Formulario

@@ -1,19 +1,21 @@
-import Jogador from '../Jogador/Index'
-import './Time.css'
+import Colaborador from '../Colaborador'
+import hexToRgba from 'hex-to-rgba';
+import './time.css'
 
-const Time = (props) => {
-    const css = { backgroundColor: props.corPrimaria}
-
+const Time = ({ time, colaboradores, aoDeletar, mudarCor, aoFavoritar }) => {
     return (
-       
-        (props.jogadores.length > 0) ? <section className='time' style={css}>
-            <h3 style={{ borderColor: props.corSecundaria }}>{props.nome}</h3>
-            <div className='jogadores' >
-                {props.jogadores.map( jogador => <Jogador nome={jogador.nome} key={jogador.nome} sobrenome={jogador.sobrenome} posicao={jogador.posicao} imagem={jogador.imagem} dataNasc={jogador.dataNasc} corPrimaria={props.corPrimaria} escudo={props.escudo}  corSecundaria={props.corSecundaria} corTerciaria={props.corTerciaria}/> )}
+
+        colaboradores.length > 0 && <section className='time' style={{ backgroundImage: 'url(/imagens/fundo.png)', backgroundColor: hexToRgba(time.cor, '0.6') }}>
+            <input type='color' className='input-cor' value={time.cor} onChange={evento => {
+                mudarCor(evento.target.value, time.id);
+            }} />
+            <h3 style={{ borderColor: time.cor }}>{time.nome}</h3>
+            <div className='colaboradores'>
+                {colaboradores.map((colaborador, indice) => <Colaborador key={indice} colaborador={colaborador} corDeFundo={time.cor} aoDeletar={aoDeletar} aoFavoritar={aoFavoritar} />)}
             </div>
-        </section>  : null
-        
-    ) 
+        </section>
+
+    )
 }
 
 export default Time
