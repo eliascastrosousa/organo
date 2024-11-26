@@ -32,7 +32,7 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<List<DadosDetalhamentoPost>> listarPost(@PageableDefault(size = 10, sort = {"id"}) Pageable paginacao){
+    public ResponseEntity<List<DadosDetalhamentoPost>> listarPost(@PageableDefault(size = 20, sort = {"id"}) Pageable paginacao){
         var page = service.listarPosts(paginacao);
         return ResponseEntity.ok(page);
     }

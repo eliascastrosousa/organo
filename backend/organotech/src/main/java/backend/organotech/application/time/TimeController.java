@@ -34,7 +34,7 @@ public class TimeController {
     }
 
     @GetMapping
-    public ResponseEntity<List<DadosDetalhamentoTime>> listarTimes(@PageableDefault(size = 10, sort = {"id"}) Pageable paginacao){
+    public ResponseEntity<List<DadosDetalhamentoTime>> listarTimes(@PageableDefault(size = 20, sort = {"id"}) Pageable paginacao){
         var page = service.listarTimes(paginacao);
         return ResponseEntity.ok(page);
     }
