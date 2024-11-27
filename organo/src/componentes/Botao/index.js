@@ -1,7 +1,12 @@
 import './Botao.css'
 
-const Botao = ({texto}) => {
-    return (<button className='botao'>
+const Botao = ({texto, disable}) => {
+    if (disable) {
+        return (<button className='botao' disabled> 
+            {texto}
+        </button>)
+    }
+    return (<button className='botao'> 
         {texto}
     </button>)
 }
