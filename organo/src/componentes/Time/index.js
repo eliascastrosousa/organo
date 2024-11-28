@@ -2,6 +2,7 @@ import Colaborador from '../Colaborador'
 import hexToRgba from 'hex-to-rgba';
 import './time.css'
 
+
 const Time = ({ time, colaboradores, aoDeletar, mudarCor, aoFavoritar }) => {
     return (
 
